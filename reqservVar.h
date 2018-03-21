@@ -21,7 +21,7 @@ extern	struct in_addr *csa;
 //Config Params [CentralServer]
 extern 	char 			csip[IPSIZE];	// ipv4 string max size
 extern 	unsigned int 	cspt;			//port
-extern	struct 	sockaddr_in SC_addr,S_addr;
+extern	struct 	sockaddr_in SC_addr,S_addr,Service_addr;
 extern	int 	ServX;
 extern int	Oid;
 extern char Oip[IPSIZE];
