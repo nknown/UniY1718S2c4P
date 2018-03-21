@@ -8,6 +8,12 @@ int main (int argc, char **argv) {
 		SC_addr.sin_addr=*csa;//MachineIP
 		SC_addr.sin_port=htons(cspt);
 			
+	
+	memset((void*)&Service_addr,(int)'\0',sizeof(Service_addr));
+				Service_addr.sin_family=AF_INET;
+				Service_addr.sin_addr=*csa;//MachineIP
+				Service_addr.sin_port=htons(cspt);
+	
 	ReqServApp();
 	/*#ifdef app_service
 		//udp SC ask for SA
