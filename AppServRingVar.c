@@ -63,7 +63,7 @@ int RingMsgPidgeon(char *msg){
 	#ifdef debug
 	fprintf(stderr,"[INFO-Pidgeon] Sent %d Bytes{%d@%s:%d}: ",strlen(msg),RingInfo.A_Id,RingInfo.A_IP,RingInfo.A_Port);
 	#endif
-	size=strlen(msg)+1;
+	size=strlen(msg);
 	msgSize=write(RingInfo.A_fd,msg,size);
 	if(msgSize==size){
 		//Success
@@ -139,7 +139,7 @@ int JoinRing(int ServId,int myId,char *myIP,int myPort){
 		/*//the Addr of A should already be set previous so we can connect using the addr*/
 		//send msg to StartServer
 		sprintf(msgBuffer,"NEW %d;%s;%d\n\0",myId,myIP,(short)myPort);
-		n=strlen(msgBuffer)+1;
+		n=strlen(msgBuffer);
 		#ifdef debug
 			fprintf(stderr,"[INFO-JoinRing] Sent{%d:%s:%d}: %s\n",RingInfo.A_Id,RingInfo.A_IP,RingInfo.A_Port,msgBuffer);
 		#endif
@@ -249,7 +249,7 @@ int CloseRingAfterMemberLeaves(int myId){
 		sprintf(msgBuffer,"TOKEN %d;N;%d;%s;%d\n\0",
 			myId,
 			RingInfo.A_Id,RingInfo.A_IP,RingInfo.A_Port);
-		n=strlen(msgBuffer)+1;
+		n=strlen(msgBuffer);
 		//if(0<write(tcp_fd,msgBuffer,strlen(msgBuffer))){
 		if(n==write(tcp_fd,msgBuffer,n)){
 			//Sucess
@@ -434,7 +434,7 @@ int NewServer(int tcp_fdB,int myID){
 				//Warn ring of new member
 				//Start pass token
 				sprintf(msgBuffer,"TOKEN %d;N;%d;%s;%d\n",myID,id,ip,tpt);
-				msgSize=strlen(msgBuffer)+1;
+				msgSize=strlen(msgBuffer);
 				if(msgSize==write(RingInfo.A_fd,msgBuffer,msgSize)){
 					#ifdef debug
 						fprintf(stderr,"[INFO-NewServer] SENT{%d@%s:%d}: %s\n",id,ip,tpt,msgBuffer);
@@ -524,7 +524,7 @@ int InsertNewRingMember( int myId){
 				/** Type F warns that the head of ring (server before StartServer) failed to connect to the new server, aborts new server */
 				/***TOKEN myID;F;id2;pip2;tpt2\n**/
 				sprintf(msgBuffer,"TOKEN %d;F;%d;%d.%d.%d.%d;%d\n\0",myId,id2,ip1,ip2,ip3,ip4,tpt);
-				msgSize=strlen(msgBuffer)+1;
+				msgSize=strlen(msgBuffer);
 				if(msgSize==write(RingInfo.A_fd,msgBuffer,msgSize)){
 					//Success
 					#ifdef debug
@@ -550,7 +550,7 @@ int InsertNewRingMember( int myId){
 				/** Type F warns that the head of ring (server before StartServer) failed to connect to the new server, aborts new server */
 				/***TOKEN myID;F;id2;pip2;tpt2\n**/
 				sprintf(msgBuffer,"TOKEN %d;K;%d;%d.%d.%d.%d;%d\n\0",myId,id2,ip1,ip2,ip3,ip4,tpt);
-				msgSize=strlen(msgBuffer)+1;
+				msgSize=strlen(msgBuffer);
 				if(msgSize==write(RingInfoBackup.A_fd,msgBuffer,msgSize)){
 					//Success
 					#ifdef debug
